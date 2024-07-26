@@ -13,13 +13,19 @@ export default function Products() {
 
       <Box
         sx={{
-          flexGrow: 1,
-          margin: "1.5rem ",
+          display: "flex",
+          justifyContent: "center",
+          margin: "1rem ",
         }}
       >
-        <Grid container columnSpacing={{xs: 1, sm: 3, md: 4}} padding="1.5rem">
+        <Grid
+          container
+          columnSpacing={{xs: 1.5, sm: 2, md: 4}}
+          padding="1rem"
+          sx={{maxWidth: "1200px"}}
+        >
           {ProductsList.map((Products, key) => (
-            <Grid item xs={6} sm={4} md={2} key={key}>
+            <Grid item xs={6} sm={3} md={2} key={key}>
               <ProductCart data={Products} />
             </Grid>
           ))}

@@ -7,6 +7,7 @@ import {
   Grid,
   IconButton,
   Badge,
+  useMediaQuery,
 } from "@mui/material";
 import AddCardOutlinedIcon from "@mui/icons-material/AddCardOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -23,6 +24,7 @@ function Header() {
     setTotalQuantity(total);
   }, [carts]);
   const balance = useSelector((state) => state.balance.balance);
+  const IsMobile = useMediaQuery("(max-width:600px)");
   return (
     <>
       <AppBar>
@@ -43,14 +45,27 @@ function Header() {
             <Grid item>
               <Typography variant="h6">NGN{balance.toFixed(2)}</Typography>
             </Grid>
-            <Grid item>
-              <Link
-                to="/Deposit"
-                style={{color: "white", textDecoration: "none"}}
-              >
-                <Typography fontSize={16}>Deposit</Typography>
-              </Link>
-            </Grid>
+            {IsMobile ? (
+              <Grid item>
+                <Link
+                  to="/Deposit"
+                  style={{color: "white", textDecoration: "none"}}
+                >
+                  <Typography variant="body2">
+                    [NGN{balance.toFixed(2)}]
+                  </Typography>
+                </Link>
+              </Grid>
+            ) : (
+              <Grid item>
+                <Link
+                  to="/Deposit"
+                  style={{color: "white", textDecoration: "none"}}
+                >
+                  <Typography variant="">Deposit</Typography>
+                </Link>
+              </Grid>
+            )}
             <Grid item>
               <Link to="/Cart" style={{color: "white", textDecoration: "none"}}>
                 <Badge badgeContent={totalQuantity} color="secondary">

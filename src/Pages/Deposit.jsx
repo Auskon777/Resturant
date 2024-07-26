@@ -20,6 +20,7 @@ const Deposit = () => {
     } else {
       setError("Amount must be between N100.00 and N100,000.00");
     }
+    setAmount("");
   };
 
   return (
@@ -30,9 +31,8 @@ const Deposit = () => {
           <TextField
             label="Enter Amount"
             type="number"
-            step="0.01"
             value={amount}
-            onChange={(e) => setAmount(parseFloat(e.target.value))}
+            onChange={(e) => setAmount(e.target.value)}
             variant="outlined"
             margin="normal"
             fullWidth
