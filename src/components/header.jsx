@@ -42,9 +42,6 @@ function Header() {
           </Grid>
 
           <Grid container justifyContent={"space-between"}>
-            <Grid item>
-              <Typography variant="h6">NGN{balance.toFixed(2)}</Typography>
-            </Grid>
             {IsMobile ? (
               <Grid item>
                 <Link
@@ -57,13 +54,18 @@ function Header() {
                 </Link>
               </Grid>
             ) : (
-              <Grid item>
-                <Link
-                  to="/Deposit"
-                  style={{color: "white", textDecoration: "none"}}
-                >
-                  <Typography variant="">Deposit</Typography>
-                </Link>
+              <Grid container>
+                <Grid item>
+                  <Typography variant="h6">NGN{balance.toFixed(2)}</Typography>
+                </Grid>
+                <Grid item>
+                  <Link
+                    to="/Deposit"
+                    style={{color: "white", textDecoration: "none"}}
+                  >
+                    <Typography variant="">Deposit</Typography>
+                  </Link>
+                </Grid>
               </Grid>
             )}
             <Grid item>
