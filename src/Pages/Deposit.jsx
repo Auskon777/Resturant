@@ -25,36 +25,34 @@ const Deposit = () => {
   };
 
   return (
-    <div>
-      <div style={{padding: "20px"}}>
-        <h1>Balance: NGN{balance.toFixed(2)}</h1>
-        <form onSubmit={handleAddMoney}>
-          <TextField
-            label="Enter Amount"
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-          />
-          {error && (
-            <Stack sx={{width: "100%"}} spacing={2}>
-              <Alert severity="error">{error}</Alert>
-            </Stack>
-          )}
-          <div style={{marginTop: "10px"}}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleAddMoney}
-              style={{marginRight: "10px"}}
-            >
-              Add Money
-            </Button>
-          </div>
-        </form>
-      </div>
+    <div style={{padding: "20px", height: "100%"}}>
+      <h1>Balance: NGN{balance.toFixed(2)}</h1>
+      <form onSubmit={handleAddMoney}>
+        <TextField
+          label="Enter Amount"
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          variant="outlined"
+          margin="normal"
+          fullWidth
+        />
+        {error && (
+          <Stack sx={{width: "100%"}} spacing={2}>
+            <Alert severity="error">{error}</Alert>
+          </Stack>
+        )}
+        <div style={{marginTop: "10px"}}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleAddMoney}
+            style={{marginRight: "10px"}}
+          >
+            Add Money
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

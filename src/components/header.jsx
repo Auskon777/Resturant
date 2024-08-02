@@ -9,7 +9,6 @@ import {
   Badge,
   useMediaQuery,
 } from "@mui/material";
-import AddCardOutlinedIcon from "@mui/icons-material/AddCardOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {useSelector} from "react-redux";
@@ -43,15 +42,27 @@ function Header() {
 
           <Grid container justifyContent={"space-between"}>
             {IsMobile ? (
-              <Grid item>
-                <Link
-                  to="/Deposit"
-                  style={{color: "white", textDecoration: "none"}}
-                >
-                  <Typography variant="body2">
-                    [NGN{balance.toFixed(2)}]
-                  </Typography>
-                </Link>
+              <Grid container justifyContent={"space-between"}>
+                <Grid item>
+                  <Link
+                    to="/Deposit"
+                    style={{color: "white", textDecoration: "none"}}
+                  >
+                    <Typography variant="body2">
+                      [NGN{balance.toFixed(2)}]
+                    </Typography>
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    to="/Cart"
+                    style={{color: "white", textDecoration: "none"}}
+                  >
+                    <Badge badgeContent={totalQuantity} color="secondary">
+                      <ShoppingCartOutlinedIcon />
+                    </Badge>
+                  </Link>
+                </Grid>
               </Grid>
             ) : (
               <Grid container justifyContent={"space-between"}>

@@ -7,7 +7,9 @@ export default function Layout({children}) {
     <div style={{background: "#f1f1f2"}}>
       <Header />
       <div style={{marginTop: "100px"}}>{children}</div>
-      <Footer />
+      <div style={{marginTop: "320px"}}>
+        <Footer />
+      </div>
     </div>
   );
 }
