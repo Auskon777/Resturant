@@ -38,7 +38,7 @@ export default function CartItem(props) {
                 }}
               >
                 <CardContent>
-                  <Typography> {name}</Typography>
+                  <Typography variant="body2"> {name}</Typography>
                 </CardContent>
                 <CardContent>
                   <Typography> N{price * quantity}</Typography>
@@ -53,11 +53,6 @@ export default function CartItem(props) {
                   padding: "10px",
                 }}
               >
-                <Box>
-                  <CardContent>
-                    <Typography>Quantity: {quantity}</Typography>
-                  </CardContent>
-                </Box>
                 <Box
                   display={"flex"}
                   sx={{
@@ -72,8 +67,11 @@ export default function CartItem(props) {
                     color="secondary"
                     onClick={() => dispatch(removeItem(id))}
                   >
-                    <Typography variant="body1">-</Typography>
+                    <Typography variant="body2">-</Typography>
                   </Button>
+                  <Box>
+                    <Typography variant="body2"> {quantity}</Typography>
+                  </Box>
                   <Button
                     variant="outlined"
                     size="small"
