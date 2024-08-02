@@ -1,9 +1,8 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addToCart} from "./CartSlice";
+import {addItem} from "./store/CartSlice";
 
 import {
-  Grid,
   Card,
   CardMedia,
   CardContent,
@@ -11,23 +10,14 @@ import {
   CardActions,
   Button,
   Divider,
-  Box,
 } from "@mui/material";
 
 export default function ProductCart(props) {
-  const items = useSelector((state) => state.cart.items);
-  console.log(items);
+  const carts = useSelector((state) => state.cart.items);
+  console.log(carts);
   const dispatch = useDispatch();
+
   const {id, name, price, img} = props.data;
-  const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        productId: id,
-        quantity: 1,
-        price: price,
-      })
-    );
-  };
 
   return (
     <Card style={{width: "144px", marginBottom: "10px"}}>
@@ -37,7 +27,7 @@ export default function ProductCart(props) {
         style={{height: "144px", width: "144px"}}
       />
       <CardContent>
-        <Typography gutterBottom variant="body1" component="div">
+        <Typography gutterBottom variant="body2" component="div">
           {name}
         </Typography>
         <Divider />
@@ -58,7 +48,7 @@ export default function ProductCart(props) {
           fullWidth
           sx={{fontSize: "0.76rem"}}
           color="secondary"
-          onClick={handleAddToCart}
+          onClick={() => dispatch(addItem({id, name, price, img}))}
         >
           Add to cart
         </Button>

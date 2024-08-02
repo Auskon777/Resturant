@@ -25,8 +25,8 @@ export default function Products() {
           sx={{maxWidth: "1200px"}}
         >
           {ProductsList.map((Products, key) => (
-            <Grid item xs={6} sm={3} md={2} key={key}>
-              <ProductCart data={Products} />
+            <Grid item xs={6} sm={3} md={2}>
+              <ProductCart key={key} data={Products} />
             </Grid>
           ))}
         </Grid>

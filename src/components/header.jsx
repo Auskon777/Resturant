@@ -54,7 +54,7 @@ function Header() {
                 </Link>
               </Grid>
             ) : (
-              <Grid container>
+              <Grid container justifyContent={"space-between"}>
                 <Grid item>
                   <Typography variant="h6">NGN{balance.toFixed(2)}</Typography>
                 </Grid>
@@ -66,15 +66,18 @@ function Header() {
                     <Typography variant="">Deposit</Typography>
                   </Link>
                 </Grid>
+                <Grid item>
+                  <Link
+                    to="/Cart"
+                    style={{color: "white", textDecoration: "none"}}
+                  >
+                    <Badge badgeContent={totalQuantity} color="secondary">
+                      <ShoppingCartOutlinedIcon />
+                    </Badge>
+                  </Link>
+                </Grid>
               </Grid>
             )}
-            <Grid item>
-              <Link to="/Cart" style={{color: "white", textDecoration: "none"}}>
-                <Badge badgeContent={totalQuantity} color="secondary">
-                  <ShoppingCartOutlinedIcon />
-                </Badge>
-              </Link>
-            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>

@@ -10,13 +10,14 @@ const Deposit = () => {
   const balance = useSelector((state) => state.balance.balance);
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   const handleAddMoney = (e) => {
     e.preventDefault();
 
     if ((amount >= 100) & (amount <= 100000)) {
       dispatch(addMoney(Number(amount)));
+      setError(null);
     } else {
       setError("Amount must be between N100.00 and N100,000.00");
     }
@@ -25,7 +26,7 @@ const Deposit = () => {
 
   return (
     <div>
-      <div style={{padding: "20px", marginTop: "100px"}}>
+      <div style={{padding: "20px"}}>
         <h1>Balance: NGN{balance.toFixed(2)}</h1>
         <form onSubmit={handleAddMoney}>
           <TextField

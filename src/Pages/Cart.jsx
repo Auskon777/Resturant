@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
+import ProductList from "../components/ProductsList";
 import {Box, Button, Typography, Grid, Container} from "@mui/material";
 import CartItem from "../components/CartItem";
-import {purchaseSuccess} from "../components/CartSlice";
+import {purchaseSuccess} from "../components/store/CartSlice";
 import {useSelector, useDispatch} from "react-redux";
 import {payment} from "../components/BalanceSlice";
 import Alert from "@mui/material/Alert";
@@ -9,13 +10,8 @@ import Stack from "@mui/material/Stack";
 import {Link} from "react-router-dom";
 
 export default function Cart() {
-  const [totalPrice, setTotalPrice] = useState(0);
-  let carts = useSelector((state) => state.cart.items);
-  useEffect(() => {
-    let total = 0;
-    carts.forEach((item) => (total += item.price));
-    setTotalPrice(total);
-  }, [carts]);
+  const carts = useSelector((state) => state.cart.items);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
 
   const balance = useSelector((state) => state.balance.balance);
   const dispatch = useDispatch();
@@ -57,7 +53,7 @@ export default function Cart() {
           )}
         </Stack>
       </div>
-      {totalPrice > 0 && <h3> Subtotal: N{totalPrice}</h3>}
+      {carts.length > 0 && <h3> Subtotal: N{totalPrice}</h3>}
       <Container>
         <Grid container>
           <Grid item xs>
@@ -67,7 +63,7 @@ export default function Cart() {
           </Grid>
         </Grid>
         <Box style={{marginTop: "50px"}}>
-          {totalPrice > 0 ? (
+          {carts.length > 0 ? (
             <Button
               onClick={handleDeductMoney}
               variant="contained"
