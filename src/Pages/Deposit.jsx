@@ -9,12 +9,10 @@ import Stack from "@mui/material/Stack";
 const Deposit = () => {
   const balance = useSelector((state) => state.balance.balance);
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const [error, setError] = useState(null);
 
   const handleAddMoney = (e) => {
-    e.preventDefault();
-
     if ((amount >= 100) & (amount <= 100000)) {
       dispatch(addMoney(Number(amount)));
       setError(null);
@@ -32,6 +30,7 @@ const Deposit = () => {
           label="Enter Amount"
           type="number"
           value={amount}
+          placeholder=" N100 - N100000"
           onChange={(e) => setAmount(e.target.value)}
           variant="outlined"
           margin="normal"

@@ -1,37 +1,51 @@
 import React, {useState} from "react";
 import ProductList from "../components/ProductsList";
-import {Box, Button, Typography, Grid, Container} from "@mui/material";
+import {Box, Button, Paper, Typography, Grid, Container} from "@mui/material";
 import CartItem from "../components/CartItem";
 import {purchaseSuccess} from "../components/store/CartSlice";
 import {useSelector, useDispatch} from "react-redux";
 import {payment} from "../components/BalanceSlice";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import {LoadingButton} from "@mui/lab";
 import {Link} from "react-router-dom";
 
 export default function Cart() {
   const carts = useSelector((state) => state.cart.items);
+  const quantity = useSelector((state) => state.cart.totalQuantity);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
 
   const balance = useSelector((state) => state.balance.balance);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
 
   //function to deduct money
-  const handleDeductMoney = (e) => {
-    if (balance >= Number(totalPrice)) {
-      setError("");
-      dispatch(payment(Number(totalPrice)));
-      dispatch(purchaseSuccess());
-      setError(null);
-    } else {
+  const handleDeductMoney = async (e) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      if (balance >= Number(totalPrice)) {
+        dispatch(payment(Number(totalPrice)));
+        dispatch(purchaseSuccess());
+        setPaymentCompleted(true);
+      } else {
+        setError("Insufficient balance to complete the purchase.");
+      }
+    } catch (error) {
       setError("Insufficient balance to complete the purchase.");
+    } finally {
+      setLoading(false);
     }
+
     setOpen(true);
     setTimeout(() => {
       setOpen(false);
-    }, 5000); // 5 seconds
+    }, 5000);
   };
 
   return (
@@ -53,7 +67,28 @@ export default function Cart() {
           )}
         </Stack>
       </div>
-      {carts.length > 0 && <h3> Subtotal: N{totalPrice}</h3>}
+      {carts.length > 0 && (
+        <Container sx={{marginBottom: "20px"}}>
+          {" "}
+          <Paper>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0px 15px",
+              }}
+            >
+              <Box>
+                {" "}
+                <h3> Subtotal ({quantity} Items )</h3>
+              </Box>
+              <Box>
+                <h3> N{totalPrice} </h3>
+              </Box>
+            </Box>
+          </Paper>
+        </Container>
+      )}
       <Container>
         <Grid container>
           <Grid item xs>
@@ -64,13 +99,26 @@ export default function Cart() {
         </Grid>
         <Box style={{marginTop: "50px"}}>
           {carts.length > 0 ? (
-            <Button
-              onClick={handleDeductMoney}
-              variant="contained"
-              color="secondary"
-            >
-              Pay (NGN {totalPrice})
-            </Button>
+            <Box>
+              {loading ? (
+                <LoadingButton
+                  loading={loading}
+                  loadingPosition="end"
+                  variant="contained"
+                  color="secondary"
+                >
+                  Pay (NGN {totalPrice})
+                </LoadingButton>
+              ) : (
+                <Button
+                  onClick={handleDeductMoney}
+                  variant="contained"
+                  color="secondary"
+                >
+                  Pay (NGN {totalPrice})
+                </Button>
+              )}
+            </Box>
           ) : (
             <Link to="/">
               <Button variant="contained" color="secondary">
@@ -81,7 +129,7 @@ export default function Cart() {
         </Box>
         <div style={{marginBottom: "100px"}}>
           {" "}
-          {open && error && (
+          {error && (
             <Stack sx={{width: "100%"}} spacing={2}>
               <Alert severity="error">{error}</Alert>
             </Stack>

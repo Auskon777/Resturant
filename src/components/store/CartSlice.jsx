@@ -25,6 +25,7 @@ const cartSlice = createSlice({
     purchaseSuccess(state) {
       state.items = [];
       state.totalPrice = 0;
+      state.totalQuantity = 0;
     },
 
     removeItem(state, action) {

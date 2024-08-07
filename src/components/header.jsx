@@ -34,7 +34,7 @@ function Header() {
                 <IconButton style={{color: "white", textDecoration: "none"}}>
                   {" "}
                   <RestaurantMenuIcon />
-                  <Typography variant="body1">E-Resturant</Typography>
+                  <Typography variant="body1">Casa Mia</Typography>
                 </IconButton>
               </Link>
             </Grid>
